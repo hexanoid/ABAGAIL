@@ -37,5 +37,21 @@ public class TravelingSalesmanSortEvaluationFunction extends TravelingSalesmanEv
         distance += getDistance(order[order.length - 1], order[0]);
         return 1/distance;
     }
-
+    private long evalCount = 0;
+    private long evalTime = 0;
+    private long evalStart = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime = System.nanoTime();
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){
+        evalCount = 0;
+        evalStart = System.nanoTime();
+    }
+    @Override
+    public long getLastEvalTime(){return evalTime - evalStart;}
 }

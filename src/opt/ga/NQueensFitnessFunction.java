@@ -21,6 +21,7 @@ public class NQueensFitnessFunction implements EvaluationFunction {
 	 * find the first solution
 	 */
 	public double value(Instance d) {
+		incrementEvalCount();
 		double fitness = 0;
 
 		NQueensBoardGame board = getBoardForGivenInstance(d);
@@ -87,4 +88,21 @@ public class NQueensFitnessFunction implements EvaluationFunction {
 		
 		return currentBoard.toString();
 	}
+	private long evalCount = 0;
+	private long evalTime = 0;
+	private long evalStart = 0;
+	@Override
+	public void incrementEvalCount() {
+		evalCount++;
+		evalTime = System.nanoTime();
+	}
+	@Override
+	public long getEvalCount(){return evalCount;}
+	@Override
+	public void resetEvalCount(){
+		evalCount = 0;
+		evalStart = System.nanoTime();
+	}
+	@Override
+	public long getLastEvalTime(){return evalTime - evalStart;}
 }

@@ -17,6 +17,7 @@ public abstract class TravelingSalesmanEvaluationFunction implements EvaluationF
      * @param points the points at which the cities are located
      */
     public TravelingSalesmanEvaluationFunction(double[][] points) {
+        incrementEvalCount();
         distances = new double[points.length][];
         for (int i = 0; i < points.length; i++) {
             distances[i] = new double[i];

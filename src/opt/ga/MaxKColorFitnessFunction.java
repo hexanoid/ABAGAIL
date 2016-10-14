@@ -31,6 +31,7 @@ public class MaxKColorFitnessFunction implements EvaluationFunction {
      * Find how many iterations does it take to find if k-colors can be or can not be assigned to a given graph.
      */
     public double value(Instance d) {
+        incrementEvalCount();
         Vector data = d.getData();
         int n = data.size();
         double iterations = 0;
@@ -52,9 +53,20 @@ public class MaxKColorFitnessFunction implements EvaluationFunction {
         }
         return iterations;
     }
-
-    
     public String foundConflict(){
     	return conflict ? "Failed to find Max-K Color combination !" : "Found Max-K Color Combination !";
     }
+    private long evalCount = 0;
+    private long evalTime = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime++;
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){evalCount = 0;}
+    @Override
+    public long getLastEvalTime(){return evalTime;}
 }

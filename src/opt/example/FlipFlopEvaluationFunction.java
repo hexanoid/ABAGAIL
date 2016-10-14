@@ -14,6 +14,7 @@ public class FlipFlopEvaluationFunction implements EvaluationFunction {
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        incrementEvalCount();
         Vector data = d.getData();
         double val = 0;
         for (int i = 0; i < data.size() - 1; i++) {
@@ -23,4 +24,17 @@ public class FlipFlopEvaluationFunction implements EvaluationFunction {
         }
         return val;
     }
+    private long evalCount = 0;
+    private long evalTime = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime++;
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){evalCount = 0;}
+    @Override
+    public long getLastEvalTime(){return evalTime;}
 }

@@ -15,5 +15,8 @@ public interface EvaluationFunction {
      * @return the value
      */
     public abstract double value(Instance d);
-
+    public abstract void incrementEvalCount();
+    public abstract long getEvalCount();
+    public abstract void resetEvalCount();
+    public abstract long getLastEvalTime();
 }

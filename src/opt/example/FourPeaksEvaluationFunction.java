@@ -14,7 +14,6 @@ public class FourPeaksEvaluationFunction implements EvaluationFunction {
      * The t value
      */
     private int t;
-    
     /**
      * Make a new four peaks function
      * @param t the t value
@@ -27,6 +26,7 @@ public class FourPeaksEvaluationFunction implements EvaluationFunction {
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        incrementEvalCount();
         Vector data = d.getData();
         int i = 0;
         while (i < data.size() && data.get(i) == 1) {
@@ -44,6 +44,21 @@ public class FourPeaksEvaluationFunction implements EvaluationFunction {
         }
         return Math.max(tail, head) + r;
     }
-    
-    
+    private long evalCount = 0;
+    private long evalTime = 0;
+    private long evalStart = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime = System.nanoTime();
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){
+        evalCount = 0;
+        evalStart = System.nanoTime();
+    }
+    @Override
+    public long getLastEvalTime(){return evalTime - evalStart;}
 }

@@ -52,6 +52,7 @@ public class KnapsackEvaluationFunction implements EvaluationFunction {
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        incrementEvalCount();
         Vector data = d.getData();
         double volume = 0;
         double value = 0;
@@ -67,5 +68,21 @@ public class KnapsackEvaluationFunction implements EvaluationFunction {
         }
         
     }
-
+    private long evalCount = 0;
+    private long evalTime = 0;
+    private long evalStart = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime = System.nanoTime();
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){
+        evalCount = 0;
+        evalStart = System.nanoTime();
+    }
+    @Override
+    public long getLastEvalTime(){return evalTime - evalStart;}
 }

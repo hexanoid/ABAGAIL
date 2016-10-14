@@ -43,6 +43,7 @@ public class NeuralNetworkEvaluationFunction implements EvaluationFunction {
      * @see opt.OptimizationProblem#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        incrementEvalCount();
         // set the links
         Vector weights = d.getData();
         network.setWeights(weights);
@@ -56,5 +57,17 @@ public class NeuralNetworkEvaluationFunction implements EvaluationFunction {
         // the fitness is 1 / error
         return 1 / error;
     }
-
+    private long evalCount = 0;
+    private long evalTime = 0;
+    @Override
+    public void incrementEvalCount() {
+        evalCount++;
+        evalTime++;
+    }
+    @Override
+    public long getEvalCount(){return evalCount;}
+    @Override
+    public void resetEvalCount(){evalCount = 0;}
+    @Override
+    public long getLastEvalTime(){return evalTime;}
 }
